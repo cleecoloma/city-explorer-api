@@ -17,14 +17,14 @@
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
-08/22/2023 *TIME*pm -*FEATURE*
+08/22/2023 4:00pm - Weather Server
 ### Class 02 Lab
 1. Feature(s)
-    * 
-2. Estimate of time needed to complete: **hours**
-3. Start time: **TIMEpm**
-4. Finish time: **TIMEpm**
-5. Actual time needed to complete: **hours**
+    * Weather Server
+2. Estimate of time needed to complete: **3 hours**
+3. Start time: **1:00pm**
+4. Finish time: **4:00pm**
+5. Actual time needed to complete: **3hours**
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
