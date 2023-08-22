@@ -50,7 +50,7 @@ app.get('/weather', (request, response) => {
     } else if (searchQuery.toLowerCase() === 'amman') {
       response.json(dataRetrieve(2));
     } else {
-      response.status(200).send('Error: City is not in the data pool!');
+      response.status(400).send('Error: City is not in the data pool!');
     }
   }
 });
