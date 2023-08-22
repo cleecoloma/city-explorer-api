@@ -31,12 +31,6 @@ const dataRetrieve = (index) => {
 const errorMessage = (errorCode) => {
   if (errorCode === 400) {
     return response.status(errorCode).send("Bad Request. Server cannot process client's request due to client error.");
-  } else if (errorCode === 404) {
-    return response
-      .status(errorCode)
-      .send(
-        "Requested resource could not be found on the server."
-      );
   } else {
     return response
       .status(errorCode)
