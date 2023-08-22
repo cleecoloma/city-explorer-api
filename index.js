@@ -1,4 +1,5 @@
 'use strict';
+import weather from './data/weather.json';
 
 const dotenv = require('dotenv');
 const express = require('express'); //built in function for code running in the Node runtime.
@@ -6,6 +7,13 @@ const cors = require('cors');
 
 dotenv.config();
 const PORT = process.env.PORT;
+
+class Forecast {
+  constructor(date, description) {
+    this.date = date;
+    this.description = description;
+  }
+}
 
 const app = express(); //create our express app, now we are ready to define some functionality.
 app.use(cors()); //activates cross-origin-resource-sharing. It will allow other origins (besides localhost to make request to this code)
