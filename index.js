@@ -16,8 +16,6 @@ class Forecast {
   }
 }
 
-//dataWeather[index].data[0].weather.description
-
 const dataRetrieve = (index) => {
   const cityWeatherData = [];
   for (let i = 0; i < dataWeather[index].data.length; i++) {
@@ -27,8 +25,25 @@ const dataRetrieve = (index) => {
     );
     cityWeatherData.push(forecast);
   }
-  // console.log(cityWeatherData);
   return cityWeatherData;
+};
+
+const errorMessage = (errorCode) => {
+  if (errorCode === 400) {
+    return response.status(errorCode).send("Bad Request. Server cannot process client's request due to client error.");
+  } else if (errorCode === 404) {
+    return response
+      .status(errorCode)
+      .send(
+        "Requested resource could not be found on the server."
+      );
+  } else {
+    return response
+      .status(errorCode)
+      .send(
+        "Unexpected condition was encountered. Server couldn't fulfill the request."
+      );
+  }
 };
 
 const app = express(); //create our express app, now we are ready to define some functionality.
@@ -41,7 +56,7 @@ app.get('/weather', (request, response) => {
   console.log('We got the weather report!');
 
   if (!lat || !lon || !searchQuery) {
-    response.status(400).send('1Bad Request. Missing required parameters!');
+    errorMessage(400);
   } else {
     if (searchQuery.toLowerCase() === 'seattle') {
       response.json(dataRetrieve(0));
@@ -50,7 +65,7 @@ app.get('/weather', (request, response) => {
     } else if (searchQuery.toLowerCase() === 'amman') {
       response.json(dataRetrieve(2));
     } else {
-      response.status(400).send('Error: City is not in the data pool!');
+      errorMessage(500);
     }
   }
 });
