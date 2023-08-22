@@ -18,7 +18,7 @@
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 08/22/2023 4:00pm - Weather Server
-### Class 02 Lab
+### Class 07 Lab
 1. Feature(s)
     * Weather Server
 2. Estimate of time needed to complete: **3 hours**
