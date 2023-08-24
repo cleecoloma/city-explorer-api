@@ -2,12 +2,12 @@
 const dotenv = require('dotenv');
 const express = require('express'); //built in function for code running in the Node runtime.
 const cors = require('cors');
-// const dataWeather = require('./data/weather.json');
 const axios = require('axios');
 
 dotenv.config();
 const PORT = process.env.PORT;
 const WEATHER_API_KEY = process.env.WEATHER_KEY;
+const MOVIE_API_KEY = process.env.MOVIE_KEY;
 
 class Forecast {
   constructor(date, description) {
@@ -60,7 +60,6 @@ app.get('/weather', (request, response) => {
     axios
       .get(
         `http://api.weatherbit.io/v2.0/forecast/daily?key=${WEATHER_API_KEY}&lon=${lon}&lat=${lat}`
-        // `http://api.weatherbit.io/v2.0/forecast/daily?key=fa40bac643c345ac904c8a2963f6710c&lat=47.6038321&lon=-122.330062`
       )
       .then((weatherResponse) => {
         // console.log('WeatherBit - Successful: ', response.data);
@@ -73,20 +72,6 @@ app.get('/weather', (request, response) => {
         response.status(500).send('Something went wrong!');
       });
   }
-
-  // if (!lat || !lon || !searchQuery) {
-  //   errorMessage(400);
-  // } else {
-  //   if (searchQuery.toLowerCase() === 'seattle') {
-  //     response.json(dataRetrieve(0));
-  //   } else if (searchQuery.toLowerCase() === 'paris') {
-  //     response.json(dataRetrieve(1));
-  //   } else if (searchQuery.toLowerCase() === 'amman') {
-  //     response.json(dataRetrieve(2));
-  //   } else {
-  //     errorMessage(500);
-  //   }
-  // }
 });
 
 app.listen(PORT, () => {
