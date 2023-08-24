@@ -2,13 +2,12 @@
 const dotenv = require('dotenv');
 const express = require('express'); //built in function for code running in the Node runtime.
 const cors = require('cors');
-const dataWeather = require('./data/weather.json');
+// const dataWeather = require('./data/weather.json');
 const axios = require('axios');
 
+dotenv.config();
 const PORT = process.env.PORT;
 const WEATHER_API_KEY = process.env.WEATHER_KEY;
-
-dotenv.config();
 
 class Forecast {
   constructor(date, description) {
@@ -49,25 +48,32 @@ const app = express(); //create our express app, now we are ready to define some
 app.use(cors()); //activates cross-origin-resource-sharing. It will allow other origins (besides localhost to make request to this code)
 
 app.get('/weather', (request, response) => {
-  const { lat, lon, searchQuery } = request.query;
+  const { lat, lon } = request.query;
   console.log('We got the weather report!');
-  if (!lat || !lon || !searchQuery) {
+  console.log(request.query);
+  debugger;
+  if (!lat || !lon) {
+    console.log('here now');
     errorMessage(400);
   } else {
-    try {
-      let weatherResponse = axios.get(
+    console.log('Located before weatherbit get request');
+    axios
+      .get(
         `http://api.weatherbit.io/v2.0/forecast/daily?key=${WEATHER_API_KEY}&lon=${lon}&lat=${lat}`
-      );
-      let sendWeatherDataToClient = dataRetrieve(weatherResponse);
-      response.json(sendWeatherDataToClient);
-    } catch (e) {
-      response.status(500).send('Something went wrong!');
-    }
+        // `http://api.weatherbit.io/v2.0/forecast/daily?key=fa40bac643c345ac904c8a2963f6710c&lat=47.6038321&lon=-122.330062`
+      )
+      .then((weatherResponse) => {
+        // console.log('WeatherBit - Successful: ', response.data);
+        let sendWeatherDataToClient = dataRetrieve(weatherResponse.data);
+        console.log(sendWeatherDataToClient);
+        response.send(sendWeatherDataToClient);
+      })
+      .catch((error) => {
+        console.log(`Error: didn't load get request`, error);
+        response.status(500).send('Something went wrong!');
+      });
   }
 
-  // } else {
-  //   errorMessage(500);
-  // }
   // if (!lat || !lon || !searchQuery) {
   //   errorMessage(400);
   // } else {
@@ -84,5 +90,5 @@ app.get('/weather', (request, response) => {
 });
 
 app.listen(PORT, () => {
-  console.log('Server is listening!');
+  console.log('Server is listening on port ::: ' + PORT);
 });
