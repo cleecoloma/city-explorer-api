@@ -36,6 +36,16 @@
 4. Finish time: **11:00pm**
 5. Actual time needed to complete: **about 8hours**
 
+08/24/2023 3:00pm - Refactor Code
+### Class 08 Lab
+1. Feature(s)
+    * Weather Module
+    * Movie Module
+2. Estimate of time needed to complete: **3 hours**
+3. Start time: **1:00pm**
+4. Finish time: **3:00pm**
+5. Actual time needed to complete: **about 2hours**
+
 ## Credit and Collaborations
 > ChatGPT and Jacob Knaack
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
