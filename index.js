@@ -91,13 +91,10 @@ app.get('/weather', async (request, response) => {
         `http://api.weatherbit.io/v2.0/forecast/daily?key=${WEATHER_API_KEY}&lon=${lon}&lat=${lat}`
       );
       let sendWeatherDataToClient = weatherDataRetrieve(weatherResponse.data);
-      // console.log(sendWeatherDataToClient);
-      // response.send(sendWeatherDataToClient);
       let movieResponse = await axios.get(
         `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&query=${searchQuery}`
       );
       let sendMovieDataToClient = movieDataRetrieve(movieResponse.data);
-      // console.log(sendMovieDataToClient);
       response.send({sendWeatherDataToClient, sendMovieDataToClient});
     } catch (error) {
       console.log(`Error: didn't load get request`, error);
