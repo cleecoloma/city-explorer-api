@@ -1,7 +1,7 @@
 # City Explorer API
 
 **Author**: Chester Lee Coloma
-**Version**: 1.0.0
+**Version**: 1.2.0
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
@@ -37,7 +37,7 @@
 5. Actual time needed to complete: **about 8hours**
 
 08/24/2023 3:00pm - Refactor Code
-### Class 08 Lab
+### Class 09 Lab
 1. Feature(s)
     * Weather Module
     * Movie Module
@@ -45,6 +45,15 @@
 3. Start time: **1:00pm**
 4. Finish time: **3:00pm**
 5. Actual time needed to complete: **about 2hours**
+
+08/25/2023 1:30pm - Error and Performance
+### Class 10 Lab
+1. Feature(s)
+    * Error and performance
+2. Estimate of time needed to complete: **2 hours**
+3. Start time: **12:00pm**
+4. Finish time: **1:30pm**
+5. Actual time needed to complete: **1.5 hours**
 
 ## Credit and Collaborations
 > ChatGPT and Jacob Knaack
