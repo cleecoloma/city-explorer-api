@@ -2,8 +2,8 @@
 const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
-const handleGetMovies = require('./movies.js');
-const handleGetWeather = require('./weather.js');
+const handleGetMovies = require('./modules/movies.js');
+const handleGetWeather = require('./modules/weather.js');
 
 dotenv.config();
 const PORT = process.env.PORT;

@@ -2,6 +2,7 @@
 
 const axios = require('axios');
 const dotenv = require('dotenv');
+let cache = require('./cache.js');
 
 dotenv.config();
 const MOVIE_API_KEY = process.env.MOVIE_KEY;
@@ -44,21 +45,32 @@ const movieDataRetrieve = (response) => {
 };
 const handleGetMovies = async (request, response) => {
   const searchQuery = request.query.searchQuery;
+  const key = 'movies-' + searchQuery;
+  let sendMovieDataToClient = null;
   if (!searchQuery) {
     response.status(400).send('Movies:400: Something went wrong!');
   } else {
     console.log('Located before movies get request');
-    try {
-      let movieResponse = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&query=${searchQuery}`
-      );
-      let sendMovieDataToClient = movieDataRetrieve(movieResponse.data);
-      response.send(sendMovieDataToClient);
-    } catch (error) {
-      console.log(`Movies: Didn't load get request`, error);
-      response.status(500).send('Movies:500: Something went wrong!');
+    if (cache[key] && Date.now() - cache[key].timestamp < 50000) {
+      console.log('Cache hit! Sending stored data!');
+      sendMovieDataToClient = cache[key].data;
+    } else {
+      try {
+        console.log('Cache miss! Requesting fresh API data!');
+        let movieResponse = await axios.get(
+          `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&query=${searchQuery}`
+        );
+        sendMovieDataToClient = movieDataRetrieve(movieResponse.data);
+        cache[key] = {};
+        cache[key].data = sendMovieDataToClient;
+        cache[key].timestamp = Date.now();
+      } catch (error) {
+        console.log(`Movies: Didn't load get request`, error);
+        response.status(500).send('Movies:500: Something went wrong!');
+      }
     }
   }
+  response.send(sendMovieDataToClient);
 };
 
 module.exports = handleGetMovies;
