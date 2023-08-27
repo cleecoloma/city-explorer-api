@@ -13,6 +13,7 @@ app.use(cors());
 
 app.get('/weather', handleGetWeather);
 app.get('/movie', handleGetMovies);
+app.get('/food', handleGetFood);
 
 app.listen(PORT, () => {
   console.log('Server is listening on port ::: ' + PORT);
