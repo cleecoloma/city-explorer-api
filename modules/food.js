@@ -8,22 +8,28 @@ dotenv.config();
 const FOOD_API_KEY = process.env.FOOD_KEY;
 
 class Forecast {
-  constructor(date, description) {
-    this.date = date;
-    this.description = description;
+  constructor(name, url, reviewCount, rating, displayAddress) {
+    this.name = name;
+    this.url = url;
+    this.reviewCount = reviewCount;
+    this.rating = rating;
+    this.displayAddress = displayAddress;
   }
 }
 
 const headers = {
-  Authorization: `Bearer ${FOOD_API_KEY}`
-}
+  Authorization: `Bearer ${FOOD_API_KEY}`,
+};
 
 const foodDataRetrieve = (response) => {
   const cityFoodData = [];
   for (let i = 0; i < 5; i++) {
     const food = new Food(
-      response.data[i].valid_date,
-      response.data[i].weather.description
+      response.data[i].businesses.name,
+      response.data[i].businesses.url,
+      response.data[i].businesses.review_count,
+      response.data[i].businesses.rating,
+      response.data[i].businesses.display_address
     );
     cityFoodData.push(forecast);
   }
@@ -44,7 +50,7 @@ const handleGetFood = async (request, response) => {
     } else {
       try {
         console.log('Cache miss! Requesting fresh API data!');
-        
+
         let foodResponse = await axios.get(
           `https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lon}&categories=foodtrucks&sort_by=rating&limit=5&radius=750`,
           { headers }
