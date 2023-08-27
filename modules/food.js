@@ -7,7 +7,7 @@ let cache = require('./cache.js');
 dotenv.config();
 const FOOD_API_KEY = process.env.FOOD_KEY;
 
-class Forecast {
+class Food {
   constructor(name, url, reviewCount, rating, displayAddress) {
     this.name = name;
     this.url = url;
@@ -25,13 +25,13 @@ const foodDataRetrieve = (response) => {
   const cityFoodData = [];
   for (let i = 0; i < 5; i++) {
     const food = new Food(
-      response.data[i].businesses.name,
-      response.data[i].businesses.url,
-      response.data[i].businesses.review_count,
-      response.data[i].businesses.rating,
-      response.data[i].businesses.display_address
+      response.businesses[i].name,
+      response.businesses[i].url,
+      response.businesses[i].review_count,
+      response.businesses[i].rating,
+      response.businesses[i].location.display_address
     );
-    cityFoodData.push(forecast);
+    cityFoodData.push(food);
   }
   return cityFoodData;
 };
